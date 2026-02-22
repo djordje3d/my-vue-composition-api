@@ -11,8 +11,9 @@ const image = ref(socksGreenImage)
   <div class="nav-bar"></div>
   <div class="product-display">
     <div class="product-container">
-      <div class="product-image">    
-        <img v-bind:src="image">
+      <div class="product-image">
+        <!-- <img v-bind:src="socksGreenImage"> --> this is the original static image
+        <img v-bind:src="image"> this is the image that is being displayed by the image variable
       </div>
       <div class="product-info">
         <h1>{{ product }}</h1>
