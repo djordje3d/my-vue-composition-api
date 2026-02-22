@@ -1,10 +1,44 @@
+<script setup>
+import { reactive } from "vue";
+
+const emit = defineEmits(["review-submitted"]);
+
+const review = reactive({
+  name: "",
+  content: "",
+  rating: null,
+});
+
+const onSubmit = () => {
+  
+  if (review.name === "" || review.content === "" || review.rating === null) {
+    alert("Please fill in all fields");
+    return;
+  }
+  
+  const productReview = {
+    name: review.name,
+    content: review.content,
+    rating: review.rating,
+  };
+  console.log(productReview);
+  // emit the productReview to the parent component
+  emit('review-submitted', productReview);
+
+  // reset the form
+  review.name = "";
+  review.content = "";
+  review.rating = null;
+};
+</script>
+
 <template>
-  <form class="review-form">
+  <form class="review-form" @submit.prevent="onSubmit">
     <h3>Leave a review</h3>
     <label for="name">Name:</label>
-    <input id="name" v-model="review.name">
+    <input id="name" v-model="review.name" />
 
-    <label for="review">Review:</label>      
+    <label for="review">Review:</label>
     <textarea id="review" v-model="review.content"></textarea>
 
     <label for="rating">Rating:</label>
@@ -16,6 +50,6 @@
       <option>1</option>
     </select>
 
-    <input class="button" type="submit" value="Submit">
+    <input class="button" type="submit" value="Submit" />
   </form>
 </template>
