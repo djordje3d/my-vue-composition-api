@@ -10,6 +10,9 @@ const props = defineProps({
   }
 })
 
+// this is a defineEmits function that emits the id of the selected variant to the App.vue component  
+const emit = defineEmits(['add-to-cart'],variants.value[selectedVariant.value].id)
+
 const product = ref('Socks')
 const brand = ref('Vue Mastery')
 
@@ -34,7 +37,7 @@ const inStock = computed(() => {
   return variants.value[selectedVariant.value].quantity > 0
 })
 
-const shipping = computed(() => {
+const shipping = computed(() => {  // this is a computed property that returns the shipping cost based on the premium prop
   if (props.premium) {
     return 'Free'
   }
@@ -43,7 +46,11 @@ const shipping = computed(() => {
   }
 })
 
-const addToCart = () => cart.value += 1
+const addToCart = () => 
+{
+    const id = variants.value[selectedVariant.value].id  // get the id of the selected variant
+    emit('add-to-cart',id) // emit the id of the selected variant to the App.vue component  
+}
 
 const updateVariant = (index) => {
   selectedVariant.value = index
